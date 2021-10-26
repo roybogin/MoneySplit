@@ -4,7 +4,7 @@ from functools import partial
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
-ROOMMATES = ["Eyal", "Bogin", "Harel", "Noodles"]
+ROOMMATES = ["Bogin", "Khashper", "Chuprov", "Ory"]
 
 
 class ProductLabel(QLabel):
@@ -58,7 +58,9 @@ class CreateReceipt(QWidget):
             if lbl[2].id == lbl_id:
                 #self.bill_layout.removeWidget(lbl[2])
                 self.groceries.remove(lbl)
+                self.total -= lbl[1]
                 lbl[2].deleteLater()
+                self.total_label.setText(f'total: {self.total}')
     
     def add_item(self):
         if self.product.text() != "" and self.price.text() != "":
