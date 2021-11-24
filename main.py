@@ -4,7 +4,7 @@ from functools import partial
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
-ROOMMATES = ["Bogin", "Khashper", "Chuprov", "Ory"]
+ROOMMATES = ["Bogin", "Khashper", "Chuprov", "Ory", "Harel", "Eyal"]
 
 
 class ProductLabel(QLabel):
@@ -59,6 +59,7 @@ class CreateReceipt(QWidget):
                 #self.bill_layout.removeWidget(lbl[2])
                 self.groceries.remove(lbl)
                 self.total -= lbl[1]
+                self.total = round(self.total*100)/100
                 lbl[2].deleteLater()
                 self.total_label.setText(f'total: {self.total}')
     
@@ -71,6 +72,7 @@ class CreateReceipt(QWidget):
                 self.bill_layout.addWidget(label)
                 self.groceries.append((self.product.text(), price_float, label))
                 self.total += price_float
+                self.total = round(self.total*100)/100
                 self.total_label.setText(f'total: {self.total}')
             except ValueError:
                 print("not a price")
@@ -166,6 +168,7 @@ class MainClass(QWidget):
             for roommate in range(len(ROOMMATES)):
                 if pays[roommate]:
                     costs[roommate] += price_lst[grocery][1] / pay_sum
+                costs[roommate] = round(costs[roommate]*100)/100
 
         for idx, roommate in enumerate(ROOMMATES):
             print(f'{roommate}: {costs[idx]}')
